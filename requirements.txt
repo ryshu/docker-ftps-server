@@ -1,1 +1,2 @@
-pyftpdlib==1.5.0
+pyftpdlib==1.5.6
+pyOpenSSL==19.1.0
