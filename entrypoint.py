@@ -1,4 +1,4 @@
-import os, random, string, sys, datetime
+import os, random, string, sys, datetime, json
 
 from pyftpdlib.authorizers import DummyAuthorizer
 from pyftpdlib.handlers import TLS_FTPHandler
@@ -11,13 +11,18 @@ length = 8
 chars = string.ascii_letters + string.digits
 random.seed = (os.urandom(1024))
 
+with open("config/config.json") as json_data_file:
+    data = json.load(json_data_file)
+
 FTP_ROOT = '/home'
 USER = os.getenv('USER', 'user')
-IP = os.getenv('IP')
 PASSWORD = os.getenv('PASSWORD', ''.join(random.choice(chars) for i in range(length)))
 PORT = 21
 PASSIVE_PORTS = '3000-3010'
 ANONYMOUS = os.getenv('ANONYMOUS', False)
+
+IP = data['maileva']['ftps_ip']
+DOMAIN = data['maileva']['ftps_host']
 
 #Variables
 TYPE_RSA = crypto.TYPE_RSA
@@ -26,7 +31,7 @@ now = datetime.datetime.now()
 d = now.date()
 
 #Pull these out of scope
-cn = os.getenv("DOMAIN")
+cn = DOMAIN
 output = os.getcwd()
 key = crypto.PKey()
 

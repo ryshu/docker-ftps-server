@@ -7,4 +7,6 @@ RUN mkdir /ftp_root
 
 EXPOSE 21
 
+VOLUME /app/config
+
 ENTRYPOINT python -u entrypoint.py
